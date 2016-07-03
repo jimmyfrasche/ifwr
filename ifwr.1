@@ -1,0 +1,47 @@
+.TH "ifwr" 1 "2016-07-03" "version 2016-07-03" "User Commands"
+.SH "NAME"
+ifwr \- proxy a command and fail if it writes to stdout or stderr.
+.SH "SYNOPSIS"
+.B ifwr
+.RB [ \-1 ]
+.RB [ \-2 ]
+.B cmd args*
+.SH "DESCRIPTION"
+.BR ifwr (1)
+execs a command and notes if it writes to stdout or stderr.
+.PP
+If the command completes successfully but wrote to stdout and
+.BR ifwr (1)
+was given the
+.B \-1
+flag, it fails.
+.PP
+If the command completes successfully but wrote to stderr and
+.BR ifwr (1)
+was given the
+.B \-2
+flag, it fails.
+.PP
+The output to stdout and stderr is still written and the program is run to completion.
+.SH "OPTIONS"
+.TP
+.B \-1
+fail if stdout written
+.TP
+.B \-2
+fail if stderr written
+.PP
+Both may be set.
+.PP
+If neither are specified,
+.B \-2
+is set implicitly.
+.SH "EXIT CODES"
+.PP
+If something goes wrong, the exit code is 254.
+.PP
+If the program has a nonzero exit, that exit code will be returned.
+.PP
+If the program has a zero exit code, and no writes were noted, the exit code is 0.
+.PP
+If the program has a zero exit code, and writes were noted, the exit code is 255.
